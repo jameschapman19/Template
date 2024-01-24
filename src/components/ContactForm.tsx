@@ -5,7 +5,7 @@ import { useInView } from 'framer-motion';
 import { Box, TextField, Container, Button, Typography } from '@mui/material';
 
 const variants = {
-    visible: i => ({
+    visible: (i: number) => ({
         opacity: 1,
         x: 0,
         transition: {
@@ -40,6 +40,7 @@ const ContactForm = () => {
             <motion.div initial="hidden" animate={controls} variants={variants}>
             <Typography variant="h2" gutterBottom>Contact Us</Typography>
             <Typography variant="h5" sx={{ mb: 4 }}>
+                {/* eslint-disable-next-line react/no-unescaped-entities */}
                 We're here to help
             </Typography>
             </motion.div>

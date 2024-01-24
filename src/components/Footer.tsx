@@ -11,7 +11,7 @@ import company from '@/content/company.json';
 const Footer = () => {
     const currentYear = new Date().getFullYear();
 
-    const getIcon = (name) => {
+    const getIcon = (name: string) => {
         switch (name) {
             case 'GitHub':
                 return <GitHubIcon />;
@@ -36,6 +36,7 @@ const Footer = () => {
                         <Typography variant="body2">
                             Do you have any questions? Feel free to reach out.
                         </Typography>
+                        {/* eslint-disable-next-line react/no-unescaped-entities */}
                         <Link href="mailto:l.chapmajw@gmail.com" color="inherit" underline="hover">Let's Chat</Link>
                     </Grid>
 
