@@ -5,6 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import theme from '@/theme';
 import ResponsiveAppBar from '@/components/Header';
 import Footer from '@/components/Footer';
+import Copyright from '@/components/Copyright';
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -26,6 +27,7 @@ export default function RootLayout({
           <ResponsiveAppBar/>
         {children}
           <Footer/>
+          {/*<Copyright/>*/}
       </ThemeProvider>
       </body>
     </html>

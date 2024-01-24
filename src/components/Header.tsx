@@ -1,72 +1,64 @@
-"use client"
+"use client";
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import AppBar from '@mui/material/AppBar';
-import Container from '@mui/material/Container';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
+import { AppBar, Box, Container, Toolbar, IconButton, Typography, Button, Link, Drawer, List, ListItem, ListItemText } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import AdbIcon from '@mui/icons-material/Adb';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
-const pages = ['About', 'Contact'];
+const pages = ['About', 'Inspiration', 'Contact'];
 
 function ResponsiveAppBar() {
-    const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+    const [mobileOpen, setMobileOpen] = React.useState(false);
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-    const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorElNav(event.currentTarget);
+    const handleDrawerToggle = () => {
+        setMobileOpen(!mobileOpen);
     };
 
-    const handleCloseNavMenu = () => {
-        setAnchorElNav(null);
-    };
+    const drawer = (
+        <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
+            <List>
+                {pages.map((page) => (
+                    <Link key={page} href={`/${page.toLowerCase()}`} sx={{ textDecoration: 'none' }}>
+                        <ListItem >
+                            <ListItemText primary={page} />
+                        </ListItem>
+                    </Link>
+                ))}
+            </List>
+        </Box>
+    );
 
     return (
         <AppBar position="static">
             <Container>
                 <Toolbar disableGutters>
                     <AdbIcon sx={{ display: 'flex', mr: 1 }} />
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="a"
-                        href="/"
-                        sx={{
-                            display: { xs: 'none', md: 'flex' },
-                            flexGrow: 1,
-                            color: 'inherit',
-                        }}
-                    >
-                        Base App
-                    </Typography>
-
+                    <Link href="/" sx={{ flexGrow: 1, textDecoration: 'none' }}>
+                        <Typography noWrap variant="h6" color="black">
+                            Template
+                        </Typography>
+                    </Link>
                     {isMobile ? (
-                        <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'flex-end' }}>
-                            <Button color="secondary" variant="contained" sx={{ mr: 2 }}>
-                                Sign Up
-                            </Button>
-                            <IconButton
-                                size="large"
-                                edge="end"
-                                color="inherit"
-                                aria-label="menu"
-                                onClick={handleOpenNavMenu}
-                            >
-                                <MenuIcon />
-                            </IconButton>
-                        </Box>
+                        <IconButton
+                            size="large"
+                            edge="end"
+                            color="inherit"
+                            aria-label="menu"
+                            onClick={handleDrawerToggle}
+                        >
+                            <MenuIcon />
+                        </IconButton>
                     ) : (
-                        <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'flex-end' }}>
+                        <Box sx={{ display: 'flex', justifyContent: 'flex-end', flexGrow: 1 }}>
                             {pages.map((page) => (
-                                <Button key={page} sx={{ color: 'white', display: 'block' }} onClick={handleCloseNavMenu}>
-                                    {page}
-                                </Button>
+                                <Link key={page} href={`/${page.toLowerCase()}`} sx={{ color: 'white', textDecoration: 'none' }}>
+                                    <Button sx={{ color: 'black', display: 'block', '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.18)' } }}>
+                                        {page}
+                                    </Button>
+                                </Link>
                             ))}
                             <Button color="secondary" variant="contained" sx={{ ml: 2 }}>
                                 Sign Up
@@ -75,6 +67,21 @@ function ResponsiveAppBar() {
                     )}
                 </Toolbar>
             </Container>
+            <Drawer
+                anchor="right"
+                variant="temporary"
+                open={mobileOpen}
+                onClose={handleDrawerToggle}
+                ModalProps={{
+                    keepMounted: true, // Better open performance on mobile.
+                }}
+                sx={{
+                    display: { xs: 'block', md: 'none' },
+                    '& .MuiDrawer-paper': { boxSizing: 'border-box', width: 240 },
+                }}
+            >
+                {drawer}
+            </Drawer>
         </AppBar>
     );
 }

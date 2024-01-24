@@ -1,96 +1,85 @@
 import React from 'react';
-import { Container,Box, Grid, Typography, Link, Stack, IconButton } from '@mui/material';
+import { Container, Box, Grid, Typography, Link, Stack, IconButton, Divider } from '@mui/material';
+import { grey } from '@mui/material/colors';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import InstagramIcon from '@mui/icons-material/Instagram';
-import Image from 'next/image'
+import socials from '@/content/socials.json'; // Import the JSON file for social links
+import copyright from '@/content/copyright.json';
 
 const Footer = () => {
+    const currentYear = new Date().getFullYear();
+
+    const getIcon = (name) => {
+        switch (name) {
+            case 'GitHub':
+                return <GitHubIcon />;
+            case 'LinkedIn':
+                return <LinkedInIcon />;
+            case 'Twitter':
+                return <TwitterIcon />;
+            case 'Instagram':
+                return <InstagramIcon />;
+            default:
+                return null;
+        }
+    };
 
     return (
-        <Container>
-            <Box component="footer" sx={{ py: 3 }}>
+        <Box component="footer" sx={{ backgroundColor: grey[800], color: 'white', py: 3 }}>
+            <Container maxWidth="lg">
                 <Grid container spacing={3} justifyContent="space-between">
                     <Grid item lg={4} md={4} sm={6} xs={12}>
                         <Typography variant="h6">Contact</Typography>
                         <Typography variant="body1">Tell us everything</Typography>
                         <Typography variant="body2">
-                            Do you have any question? Feel free to reach out.
+                            Do you have any questions? Feel free to reach out.
                         </Typography>
-                        <Link href="mailto:l.chapmajw@gmail.com">Let's Chat</Link>
+                        <Link href="mailto:l.chapmajw@gmail.com" color="inherit" underline="hover">Let's Chat</Link>
                     </Grid>
-                    <Grid item lg={4} md={4} sm={6} xs={12}>
-                        <Typography variant="h6">Policy</Typography>
-                        <Typography>
-                            <Link href="/" underline="hover">Application Security</Link>
-                        </Typography>
-                        <Typography>
-                            <Link href="/" underline="hover">Software Principles</Link>
-                        </Typography>
-                    </Grid>
-                    <Grid item lg={4} md={4} sm={6} xs={12}>
-                        <Typography>
-                            <Link href="/" underline="hover">Support</Link>
-                        </Typography>
-                    </Grid>
-                </Grid>
 
-                <Grid container spacing={3} justifyContent="space-between" sx={{ pt: 3 }}>
+                    <Grid item lg={4} md={4} sm={6} xs={12}>
+                        <Typography variant="h6">Company</Typography>
+                        <Link href="/about" color="inherit" underline="hover">About Us</Link>
+                        <br/>
+                        <Link href="/contact" color="inherit" underline="hover">Contact Us</Link>
+                    </Grid>
+
                     <Grid item lg={4} md={4} sm={6} xs={12}>
                         <Typography variant="h6">Address</Typography>
                         <Typography variant="body2">Rancho Santa Margarita</Typography>
                         <Typography variant="body2">2131 Elk Street</Typography>
                         <Typography variant="body2">California</Typography>
                     </Grid>
-                    <Grid item lg={4} md={4} sm={6} xs={12}>
-                        <Typography variant="h6">Company</Typography>
-                        <Typography>
-                            <Link href="/about" underline="hover">About</Link>
+                </Grid>
+
+                <Divider sx={{ backgroundColor: grey[500], my: 2 }} />
+
+                <Grid container spacing={3} justifyContent="space-between" alignItems="center">
+                    <Grid item>
+                        <Typography variant="body2" color="inherit">
+                            &copy; {currentYear} {copyright.companyname}. All Rights Reserved.
                         </Typography>
-                        <Typography>
-                            <Link href="/contact" underline="hover">Contact</Link>
-                        </Typography>
+                    </Grid>
+                    <Grid item>
+                        <Stack direction="row" spacing={2}>
+                            {socials.map((social) => (
+                                <IconButton key={social.name} component="a" href={social.url} target="_blank" color="inherit">
+                                    {getIcon(social.name)}
+                                </IconButton>
+                            ))}
+                        </Stack>
+                    </Grid>
+                    <Grid item>
+                        <Link href="/privacy-policy" color="inherit" underline="hover">Privacy Policy</Link>
+                        <span> | </span>
+                        <Link href="/terms-of-service" color="inherit" underline="hover">Terms of Service</Link>
                     </Grid>
                 </Grid>
-                <Box sx={{ borderTop: 1, borderColor: 'divider', mt: 3, pt: 3 }}>
-                    <Grid container justifyContent="space-between" alignItems="center">
-                        <Grid item>
-                            <Link href="/" underline="none">
-                                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                    <Image
-                                        src="/vercel.svg"
-                                        alt="Vercel Logo"
-                                        className="dark:invert"
-                                        width={100}
-                                        height={24}
-                                        priority
-                                    />
-                                </Box>
-                            </Link>
-                        </Grid>
-                        <Grid item>
-                            <Stack direction="row" spacing={2}>
-                                <IconButton component="a" href="https://github.com/jameschapman19" target="_blank">
-                                    <GitHubIcon />
-                                </IconButton>
-                                <IconButton component="a" href="https://linkedin.com/in/jameswhchapman" target="_blank">
-                                    <LinkedInIcon />
-                                </IconButton>
-                                <IconButton component="a" href="https://twitter.com/chapmajw" target="_blank">
-                                    <TwitterIcon />
-                                </IconButton>
-                                <IconButton component="a" href="https://instagram.com/chapmajw" target="_blank">
-                                    <InstagramIcon />
-                                </IconButton>
-                            </Stack>
-                        </Grid>
-                    </Grid>
-                </Box>
-            </Box>
-        </Container>
+            </Container>
+        </Box>
     );
 };
 
 export default Footer;
-
