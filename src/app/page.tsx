@@ -1,6 +1,5 @@
 "use client"
 import React from 'react';
-import { Container } from '@mui/material';
 import HeroSection from '@/components/HeroSection';
 import FeaturesSection from '@/components/FeaturesSection';
 import TestimonialsCarousel from '@/components/TestimonialsCarousel';
@@ -13,7 +12,7 @@ const Home = () => {
         <>
                 <HeroSection />
                 <FeaturesSection />
-                <VideoContent src="/video/184069 (1080p).mp4" alt="Your Video Description" title="Dynamic" description="And cool" />
+                <VideoContent src="/video/184069 (1080p).mp4" title="Dynamic" description="And cool" />
                 <TestimonialsCarousel />
                 <FAQSection />
                 <ContactForm />

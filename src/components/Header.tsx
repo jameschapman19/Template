@@ -1,6 +1,5 @@
 "use client"
 import * as React from 'react';
-import { useState } from 'react';
 import { AppBar, Box, Container, Toolbar, IconButton, Typography, Button, Link, Drawer, List, ListItem, ListItemText } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import AdbIcon from '@mui/icons-material/Adb';
@@ -16,7 +15,6 @@ function ResponsiveAppBar() {
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-    const [matches, setMatches] = useState( window.matchMedia(mediaQueryString).matches)
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
