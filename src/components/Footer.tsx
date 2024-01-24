@@ -6,7 +6,7 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import socials from '@/content/socials.json'; // Import the JSON file for social links
-import copyright from '@/content/copyright.json';
+import company from '@/content/company.json';
 
 const Footer = () => {
     const currentYear = new Date().getFullYear();
@@ -48,9 +48,9 @@ const Footer = () => {
 
                     <Grid item lg={4} md={4} sm={6} xs={12}>
                         <Typography variant="h6">Address</Typography>
-                        <Typography variant="body2">Rancho Santa Margarita</Typography>
-                        <Typography variant="body2">2131 Elk Street</Typography>
-                        <Typography variant="body2">California</Typography>
+                        <Typography variant="body2">{company.address1}</Typography>
+                        <Typography variant="body2">{company.address2}</Typography>
+                        <Typography variant="body2">{company.city}</Typography>
                     </Grid>
                 </Grid>
 
@@ -59,7 +59,7 @@ const Footer = () => {
                 <Grid container spacing={3} justifyContent="space-between" alignItems="center">
                     <Grid item>
                         <Typography variant="body2" color="inherit">
-                            &copy; {currentYear} {copyright.companyname}. All Rights Reserved.
+                            &copy; {currentYear} {company.companyname}. All Rights Reserved.
                         </Typography>
                     </Grid>
                     <Grid item>
