@@ -20,16 +20,16 @@ const Contact = () => {
 
     return (
         <Container sx={{ py: 4 }}>
-            <Typography variant="h3" component="h1" gutterBottom>
-                Contact Us
-            </Typography>
-            <Typography paragraph>
-                Have questions or need support? Our team is here to help.
-            </Typography>
-
             <Grid container spacing={4}>
                 <Grid item xs={12} md={6}>
-                    {/* Image or other content here */}
+                    <Box display="flex" flexDirection="column" justifyContent="center" height="100%">
+                        <Typography variant="h3" component="h1" gutterBottom>
+                            Contact Us
+                        </Typography>
+                        <Typography paragraph>
+                            Have questions or need support? Our team is here to help.
+                        </Typography>
+                    </Box>
                 </Grid>
                 <Grid item xs={12} md={6}>
                     <Box component="form" noValidate autoComplete="off">

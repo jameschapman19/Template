@@ -1,36 +1,76 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<div align="center">
+
+# Next.js Project Template
+## with MUI, Framer Motion, and TypeScript
+
+![Template](https://user-images.githubusercontent.com/48876996/121569479-e179db80-ca31-11eb-8a48-9c3de9b142f3.gif)
+![Template License](https://img.shields.io/github/license/jameschapman19/Template)
+![Template Release Date](https://img.shields.io/github/release-date/jameschapman19/Template)
+![Template Stars](https://img.shields.io/github/stars/jameschapman19/Template)
+![Template Language](https://img.shields.io/github/languages/top/jameschapman19/Template)
+![Template TypeScript](https://badgen.net/npm/types/tslib)
+
+This is a Next.js project template that comes pre-configured with powerful features to kickstart your web development journey. It includes Next.js for server-side rendering, Material-UI (MUI) components for a sleek UI, Framer Motion for dynamic page transitions, and TypeScript for type safety.
+
+</div>
 
 ## Getting Started
 
-First, run the development server:
+1. Clone this repository:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+    git clone https://github.com/jameschapman19/Template
+    cd Template
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies using your preferred package manager:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-featuresSection/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```bash
+    npm install
+    # or
+    yarn
+    # or
+    pnpm install
+    # or
+    bun install
+```
+
+3. Start the development server:
+
+```bash
+    npm run dev
+    # or
+    yarn dev
+    # or
+    pnpm dev
+    # or
+    bun dev
+```
+
+Open http://localhost:3000 with your browser to see the result.
+
+You can start editing the pages by modifying the .tsx files in the pages directory. The pages auto-update as you edit the files.
+
+This project uses next/font to automatically optimize and load Inter, a custom Google Font.
+
+## Features
+Next.js: Utilize Next.js for server-side rendering and routing.
+Material-UI (MUI): Design your application with elegant Material-UI components.
+Framer Motion: Create stunning animations and dynamic page transitions with Framer Motion.
+TypeScript: Benefit from TypeScript's static typing to catch errors during development.
 
 ## Learn More
+To learn more about the individual technologies used in this template, refer to their documentation:
 
-To learn more about Next.js, take a look at the following resources:
+Next.js Documentation - Explore Next.js features and API.
+Material-UI (MUI) Documentation - Learn about MUI's components and theming.
+Framer Motion Documentation - Dive into Framer Motion's animations and interactions.
+TypeScript Documentation - Explore TypeScript's type system and features.
+Deployment
+The easiest way to deploy your Next.js app is by using the Vercel Platform from the creators of Next.js.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js featuresSection and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Demo
+Check the live demo here 👉️ Demo
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Your feedback and contributions are welcome! Feel free to fork this repository and create pull requests or issues.

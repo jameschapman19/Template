@@ -38,10 +38,7 @@ const FAQSection = () => {
         }}>
             <Container>
             <motion.div initial="hidden" animate={controls} variants={variants}>
-                <Typography variant="h4" gutterBottom>Frequently Asked Questions</Typography>
-                <Typography variant="subtitle1" sx={{ mb: 4 }}>
-                    Get the answers you need
-                </Typography>
+                <Typography variant="h2" gutterBottom>Frequently Asked Questions</Typography>
             </motion.div>
             {faqs.map((faq, index) => (
                 <motion.div initial="hidden"

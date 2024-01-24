@@ -39,8 +39,8 @@ const FeaturesSection = () => {
         }}>
             <Container>
             <motion.div initial="hidden" animate={controls} variants={variants}>
-                <Typography variant="h4" gutterBottom sx={{  color: "white" }}>Our Top Features</Typography>
-                <Typography variant="subtitle1" sx={{ mb: 4, color: "white" }}>
+                <Typography variant="h2" gutterBottom sx={{  color: "white" }}>Our Top Features</Typography>
+                <Typography variant="h5" sx={{ mb: 4, color: "white" }}>
                     Discover what makes us stand out
                 </Typography>
             </motion.div>

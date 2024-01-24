@@ -1,17 +1,22 @@
-"use client";
+"use client"
 import * as React from 'react';
+import { useState } from 'react';
 import { AppBar, Box, Container, Toolbar, IconButton, Typography, Button, Link, Drawer, List, ListItem, ListItemText } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import AdbIcon from '@mui/icons-material/Adb';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
+
 const pages = ['About', 'Inspiration', 'Contact'];
+
+
 
 function ResponsiveAppBar() {
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+    const [matches, setMatches] = useState( window.matchMedia(mediaQueryString).matches)
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
@@ -42,6 +47,10 @@ function ResponsiveAppBar() {
                         </Typography>
                     </Link>
                     {isMobile ? (
+                        <Box sx={{ display: 'flex', justifyContent: 'flex-end', flexGrow: 1 }}>
+                            <Button color="secondary" variant="contained" sx={{ ml: 2 }}>
+                                Sign Up
+                            </Button>
                         <IconButton
                             size="large"
                             edge="end"
@@ -51,6 +60,7 @@ function ResponsiveAppBar() {
                         >
                             <MenuIcon />
                         </IconButton>
+                        </Box>
                     ) : (
                         <Box sx={{ display: 'flex', justifyContent: 'flex-end', flexGrow: 1 }}>
                             {pages.map((page) => (

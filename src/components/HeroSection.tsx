@@ -21,8 +21,8 @@ const HeroSection = () => (
             justifyContent: 'center', // Vertically center the content
         }}>
             <Container>
-            <Typography variant="h2">Welcome to Template</Typography>
-            <Typography variant="h5" sx={{ my: 2 }}>Discover Our Amazing Product</Typography>
+            <Typography variant="h1">Welcome to Template</Typography>
+            <Typography variant="h4" sx={{ my: 2 }}>Discover Our Amazing Product</Typography>
             <Button variant="contained" color="primary" size="large">Get Started</Button>
             </Container>
             </Box>

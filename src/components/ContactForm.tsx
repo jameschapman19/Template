@@ -38,8 +38,8 @@ const ContactForm = () => {
         }}>
             <Container>
             <motion.div initial="hidden" animate={controls} variants={variants}>
-            <Typography variant="h4" gutterBottom>Contact Us</Typography>
-            <Typography variant="subtitle1" sx={{ mb: 4 }}>
+            <Typography variant="h2" gutterBottom>Contact Us</Typography>
+            <Typography variant="h5" sx={{ mb: 4 }}>
                 We're here to help
             </Typography>
             </motion.div>

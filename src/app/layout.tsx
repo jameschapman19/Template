@@ -5,7 +5,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import theme from '@/theme';
 import ResponsiveAppBar from '@/components/Header';
 import Footer from '@/components/Footer';
-import Copyright from '@/components/Copyright';
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -20,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body>
       <ThemeProvider theme={theme}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
