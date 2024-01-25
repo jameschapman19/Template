@@ -3,28 +3,12 @@ import React, { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Typography, Paper } from '@mui/material';
 import { motion } from 'framer-motion';
-import axios from '../utils/axiosConfig'; // Import the Axios instance
 
-const FileUpload = () => {
-    const onDrop = useCallback(async (acceptedFiles) => {
-        const formData = new FormData();
-        acceptedFiles.forEach(file => formData.append('files', file));
-
-        try {
-            const response = await axios.post('/upload', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-            });
-            console.log(response.data); // Handle the response as needed
-        } catch (error) {
-            if (axios.isAxiosError(error)) {
-                console.error('Error uploading file: ', error.response?.data);
-            } else {
-                console.error('Unexpected error: ', error);
-            }
-        }
-    }, []);
+// @ts-ignore
+const FileUpload = ({ onFileUpload }) => {
+    const onDrop = useCallback((acceptedFiles: any) => {
+        onFileUpload(acceptedFiles);
+    }, [onFileUpload]);
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
