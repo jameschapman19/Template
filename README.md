@@ -1,9 +1,8 @@
-<div align="center">
+<div>
 
 # Next.js Project Template
 ## with MUI, Framer Motion, and TypeScript
 
-![Template](https://user-images.githubusercontent.com/48876996/121569479-e179db80-ca31-11eb-8a48-9c3de9b142f3.gif)
 ![Template License](https://img.shields.io/github/license/jameschapman19/Template)
 ![Template Release Date](https://img.shields.io/github/release-date/jameschapman19/Template)
 ![Template Stars](https://img.shields.io/github/stars/jameschapman19/Template)

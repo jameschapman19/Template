@@ -7,7 +7,7 @@ import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 
-const pages = ['About', 'Inspiration', 'Contact'];
+const pages = ['About', 'Inspiration', 'Contact', 'Product', 'Flask'];
 
 
 

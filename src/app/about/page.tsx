@@ -12,7 +12,7 @@ import InstagramIcon from "@mui/icons-material/Instagram"; // Import the JSON fi
 
 const About = () => {
 
-    const getIcon = (name) => {
+    const getIcon = (name: string) => {
         switch (name) {
             case 'GitHub':
                 return <GitHubIcon />;
