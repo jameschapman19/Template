@@ -4,7 +4,15 @@ import { Grid, Typography, useTheme, useMediaQuery } from '@mui/material';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 
-const ContentBlock = ({ title, content, direction, imageUrl, imageAlt }) => {
+interface ContentBlockProps {
+    title: string;
+    content: string;
+    direction: string;
+    imageUrl: string;
+    imageAlt: string;
+}
+
+const ContentBlock: React.FC<ContentBlockProps> = ({ title, content, direction, imageUrl, imageAlt }) => {
     const theme = useTheme();
     const matches = useMediaQuery(theme.breakpoints.up('md'));
 
