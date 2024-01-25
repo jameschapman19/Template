@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import FileUpload from '@/components/FileUpload';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import DescriptionIcon from '@mui/icons-material/Description';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const Product = () => {
     const [query, setQuery] = useState('');
@@ -32,6 +33,10 @@ const Product = () => {
             default:
                 return <DescriptionIcon />;
         }
+    };
+
+    const handleRemoveFile = (index: number) => {
+        setFiles(files.filter((_, fileIndex) => fileIndex !== index));
     };
 
     return (
@@ -62,6 +67,13 @@ const Product = () => {
                                         </Typography>
                                     </CardContent>
                                 </CardActionArea>
+                                <Button
+                                    color="error"
+                                    startIcon={<DeleteIcon />}
+                                    onClick={() => handleRemoveFile(index)}
+                                >
+                                    Remove
+                                </Button>
                             </Card>
                         </Grid>
                     ))}
