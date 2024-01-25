@@ -4,9 +4,12 @@ import { useDropzone } from 'react-dropzone';
 import { Typography, Paper } from '@mui/material';
 import { motion } from 'framer-motion';
 
-// @ts-ignore
-const FileUpload = ({ onFileUpload }) => {
-    const onDrop = useCallback((acceptedFiles: any) => {
+interface FileUploadProps {
+    onFileUpload: (files: File[]) => void;
+}
+
+const FileUpload: React.FC<FileUploadProps> = ({ onFileUpload }) => {
+    const onDrop = useCallback((acceptedFiles: File[]) => {
         onFileUpload(acceptedFiles);
     }, [onFileUpload]);
 

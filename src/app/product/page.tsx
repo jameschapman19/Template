@@ -8,7 +8,7 @@ import DescriptionIcon from '@mui/icons-material/Description';
 
 const Product = () => {
     const [query, setQuery] = useState('');
-    const [files, setFiles] = useState([]);
+    const [files, setFiles] = useState<File[]>([]);
 
     const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setQuery(event.target.value);
@@ -18,7 +18,7 @@ const Product = () => {
         console.log(query);
     };
 
-    const handleFileUpload = (newFiles: any) => {
+    const handleFileUpload = (newFiles: File[]) => {
         setFiles([...files, ...newFiles]);
     };
 
