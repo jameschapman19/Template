@@ -64,14 +64,7 @@ const About = () => {
                         </motion.div>
                     </Grid>
                     <Grid item xs={12} md={6}>
-                        <motion.div
-                            initial={{ x: 50, opacity: 0 }}
-                            animate={{ x: 0, opacity: 1 }}
-                            transition={{ duration: 0.6 }}
-                        >
-                            {/* Placeholder image of James Chapman */}
-                            <Image src="/placeholder-profile.jpg" alt="James Chapman" width={300} height={300} />
-                        </motion.div>
+                        Hello
                     </Grid>
                 </Grid>
             </Box>
