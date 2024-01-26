@@ -70,15 +70,7 @@ const About = () => {
                             transition={{ duration: 0.6 }}
                         >
                             {/* Placeholder image of James Chapman */}
-                            <Image
-                                src="/Me.jpg"
-                                alt="James Chapman"
-                                width={500}
-                                height={500}
-                                layout="responsive"
-                                objectFit="cover"
-                                quality={100}
-                            />
+                            <Image src="/placeholder-profile.jpg" alt="James Chapman" width={300} height={300} />
                         </motion.div>
                     </Grid>
                 </Grid>
