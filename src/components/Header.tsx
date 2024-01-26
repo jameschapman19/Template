@@ -8,7 +8,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import Link from '@mui/material/Link';
 
 
-const pages = ['About', 'Inspiration', 'Contact', 'Product', 'Flask'];
+const pages = ['About', 'Inspiration', 'Contact', 'Product'];
 
 
 
