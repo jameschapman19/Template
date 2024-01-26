@@ -1,10 +1,11 @@
 "use client"
 import * as React from 'react';
-import { AppBar, Box, Container, Toolbar, IconButton, Typography, Button, Link, Drawer, List, ListItem, ListItemText } from '@mui/material';
+import { AppBar, Box, Container, Toolbar, IconButton, Typography, Button, Drawer, List, ListItem, ListItemText } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import AdbIcon from '@mui/icons-material/Adb';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import Link from '@mui/material/Link';
 
 
 const pages = ['About', 'Inspiration', 'Contact', 'Product', 'Flask'];
@@ -39,8 +40,8 @@ function ResponsiveAppBar() {
             <Container>
                 <Toolbar disableGutters>
                     <AdbIcon sx={{ display: 'flex', mr: 1 }} />
-                    <Link href="/" sx={{ flexGrow: 1, textDecoration: 'none' }}>
-                        <Typography noWrap variant="h6" color="black">
+                    <Link href="/" sx={{ flexGrow: 1, textDecoration: 'none', color:theme.palette.primary.contrastText }}>
+                        <Typography noWrap variant="h6">
                             Template
                         </Typography>
                     </Link>
@@ -52,7 +53,6 @@ function ResponsiveAppBar() {
                         <IconButton
                             size="large"
                             edge="end"
-                            color="inherit"
                             aria-label="menu"
                             onClick={handleDrawerToggle}
                         >
@@ -62,11 +62,9 @@ function ResponsiveAppBar() {
                     ) : (
                         <Box sx={{ display: 'flex', justifyContent: 'flex-end', flexGrow: 1 }}>
                             {pages.map((page) => (
-                                <Link key={page} href={`/${page.toLowerCase()}`} sx={{ color: 'white', textDecoration: 'none' }}>
-                                    <Button sx={{ color: 'black', display: 'block', '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.18)' } }}>
+                                    <Button key={page} href={`/${page.toLowerCase()}`} sx={{ color: theme.palette.secondary.contrastText, display: 'block', '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.18)' } }}>
                                         {page}
                                     </Button>
-                                </Link>
                             ))}
                             <Button color="secondary" variant="contained" sx={{ ml: 2 }}>
                                 Sign Up

@@ -37,7 +37,6 @@ const VideoContent = ({ src, title, description }) => {
         <Box sx={{
             position: 'relative',
             overflow: 'hidden',
-            minHeight: '100vh', // Full viewport height
             textAlign: 'center',
             '&:before': { // Dark overlay for better text visibility
                 content: '""',

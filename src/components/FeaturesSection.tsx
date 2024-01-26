@@ -3,12 +3,12 @@ import { Grid, Card, CardContent, Container, Typography, Box } from '@mui/materi
 import { motion, useAnimation } from 'framer-motion';
 import { useEffect, useRef } from 'react';
 import { useInView } from 'framer-motion';
-import theme from '@/theme';
+import theme from '@/components/ThemeRegistry/theme';
 
 const featuresSection = [
-    { title: 'Feature 1', description: 'Description for feature 1' },
-    { title: 'Feature 2', description: 'Description for feature 2' },
-    { title: 'Feature 3', description: 'Description for feature 3' },
+    { title: 'Seamless Integration', description: 'Combine the best of both worlds with Next.js and Flask working together in harmony.' },
+    { title: 'TypeScript Ready', description: 'Leverage the power of strong typing to build more reliable and maintainable apps.' },
+    { title: 'Material UI Design', description: 'Speed up your UI development with pre-built Material UI components that are customizable and responsive.' },
 ];
 
 const FeaturesSection = () => {
@@ -29,18 +29,18 @@ const FeaturesSection = () => {
 
     return (
         <Box ref={ref}  sx={{
-            p: 4,
+            py: 8, // Vertical padding
             textAlign: 'center',
+            backgroundColor: theme.palette.primary.main, // Use primary color from theme
             minHeight: '100vh', // Set minimum height to 100% of the viewport height
-            background: theme.palette.secondary.light,
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center', // Vertically center the content
         }}>
             <Container>
             <motion.div initial="hidden" animate={controls} variants={variants}>
-                <Typography variant="h2" gutterBottom sx={{  color: "white" }}>Our Top Features</Typography>
-                <Typography variant="h5" sx={{ mb: 4, color: "white" }}>
+                <Typography variant="h2" gutterBottom sx={{ color: theme.palette.secondary.contrastText, fontWeight: 'bold' }}>Our Top Features</Typography>
+                <Typography variant="h5" sx={{ mb: 4, color: "black" }}>
                     Discover what makes us stand out
                 </Typography>
             </motion.div>
@@ -53,12 +53,16 @@ const FeaturesSection = () => {
                             variants={variants}
                             whileHover={{ scale: 1.05 }}
                         >
-                            <Card>
-                                <CardContent>
-                                    <Typography variant="h5">{feature.title}</Typography>
-                                    <Typography>{feature.description}</Typography>
-                                </CardContent>
-                            </Card>
+                        <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', backgroundColor: "white" }}>
+                            <CardContent sx={{ flexGrow: 1 }}>
+                                <Typography gutterBottom variant="h5" component="div" sx={{fontWeight: 'bold' }} >
+                                    {feature.title}
+                                </Typography>
+                                <Typography variant="body2">
+                                    {feature.description}
+                                </Typography>
+                            </CardContent>
+                        </Card>
                         </motion.div>
                     </Grid>
                 ))}

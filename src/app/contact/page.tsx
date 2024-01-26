@@ -23,12 +23,18 @@ const Contact = () => {
             <Grid container spacing={4}>
                 <Grid item xs={12} md={6}>
                     <Box display="flex" flexDirection="column" justifyContent="center" height="100%">
+                        <motion.div
+                            initial={{ opacity: 0, y: 50 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8 }}
+                        >
                         <Typography variant="h3" component="h1" gutterBottom>
                             Contact Us
                         </Typography>
                         <Typography paragraph>
                             Have questions or need support? Our team is here to help.
                         </Typography>
+                        </motion.div>
                     </Box>
                 </Grid>
                 <Grid item xs={12} md={6}>

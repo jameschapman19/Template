@@ -1,10 +1,7 @@
 "use client"
 import React from 'react';
-import { AppBar, Toolbar, Typography, Box, Container, Grid, Card, CardMedia, CardContent, CardActions, Button, Link } from '@mui/material';
-import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-
-const theme = createTheme();
+import { Typography, Box, Container, Grid, Card, CardMedia, CardContent, CardActions, Button, Link } from '@mui/material';
+import { motion } from 'framer-motion';
 
 // Example data for the gallery
 const galleryItems = [
@@ -27,8 +24,11 @@ const galleryItems = [
 
 export default function Gallery() {
     return (
-        <ThemeProvider theme={theme}>
-            <main>
+        <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+        >
                 <Box sx={{ bgcolor: 'background.paper', pt: 8, pb: 6 }}>
                     <Container maxWidth="sm">
                         <Typography component="h1" variant="h2" align="center" color="text.primary" gutterBottom>
@@ -63,7 +63,6 @@ export default function Gallery() {
                         ))}
                     </Grid>
                 </Container>
-            </main>
-        </ThemeProvider>
+        </motion.div>
     );
 }

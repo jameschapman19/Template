@@ -39,7 +39,7 @@ const About = () => {
                         About James Chapman
                     </Typography>
                     <Typography variant="h6" sx={{ my: 2 }}>
-                        A Journey from Python Expert to Web Developer
+                        A Journey from Scientific Python to Web Developer
                     </Typography>
                 </motion.div>
                 <Grid container spacing={4} alignItems="center">

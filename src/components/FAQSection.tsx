@@ -3,7 +3,7 @@ import { Accordion, AccordionSummary, AccordionDetails, Typography, Box, Contain
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {motion, useAnimation, useInView} from 'framer-motion';
 import {useEffect, useRef} from "react";
-import theme from '@/theme';
+import theme from '@/components/ThemeRegistry/theme';
 const faqs = [
     { question: 'How does this work?', answer: 'Explanation about how it works.' },
     { question: 'What is the meaning of life?', answer: '42.' },

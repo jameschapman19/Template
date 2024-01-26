@@ -6,17 +6,33 @@ import FileUpload from '@/components/FileUpload';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import DescriptionIcon from '@mui/icons-material/Description';
 import DeleteIcon from '@mui/icons-material/Delete';
+import axios from 'axios';
 
 const Product = () => {
     const [query, setQuery] = useState('');
     const [files, setFiles] = useState<File[]>([]);
+    const [response, setResponse] = useState(''); // State to store the response from the server
 
     const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setQuery(event.target.value);
     };
 
-    const handleQuerySubmit = () => {
-        console.log(query);
+    const handleQuerySubmit = async () => {
+        const formData = new FormData();
+        files.forEach(file => formData.append('files', file));
+        formData.append('query', query);
+
+        try {
+            const response = await axios.post('/api/process', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            setResponse(JSON.stringify(response.data)); // Set the response state
+        } catch (error) {
+            console.error('Error submitting files and query:', error);
+            setResponse('Failed to fetch response');
+        }
     };
 
     const handleFileUpload = (newFiles: File[]) => {
@@ -43,10 +59,10 @@ const Product = () => {
         <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.8 }}
         >
             <Container maxWidth="md">
-                <Typography variant="h3" gutterBottom sx={{ mt: 4 }}>
+                <Typography variant="h3" gutterBottom sx={{ mt: 4,textAlign: 'center' }}>
                     Product Demo
                 </Typography>
                 <Typography paragraph>
@@ -98,6 +114,15 @@ const Product = () => {
                     >
                         Submit Query
                     </Button>
+                </Paper>
+                {/* Display the response from the server */}
+                <Paper elevation={3} sx={{ p: 2, mt: 3 }}>
+                    <Typography variant="h6" gutterBottom>
+                        Server Response
+                    </Typography>
+                    <Typography>
+                        {response}
+                    </Typography>
                 </Paper>
             </Container>
         </motion.div>
