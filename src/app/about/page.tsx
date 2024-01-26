@@ -78,7 +78,6 @@ const About = () => {
                                 layout="responsive"
                                 objectFit="cover"
                                 quality={100}
-
                             />
                         </motion.div>
                     </Grid>
