@@ -31,14 +31,14 @@ const FAQSection = () => {
             p: 4,
             textAlign: 'center',
             minHeight: '100vh',
-            background: theme.palette.primary.light,
+            background: theme.palette.secondary.main,
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
         }}>
             <Container>
             <motion.div initial="hidden" animate={controls} variants={variants}>
-                <Typography variant="h2" gutterBottom>Frequently Asked Questions</Typography>
+                <Typography variant="h2" gutterBottom sx={{color:theme.palette.primary.contrastText,fontWeight: 'bold'}}>Frequently Asked Questions</Typography>
             </motion.div>
             {faqs.map((faq, index) => (
                 <motion.div initial="hidden"

@@ -38,7 +38,9 @@ const ContactForm = () => {
         }}>
             <Container>
             <motion.div initial="hidden" animate={controls} variants={variants}>
-            <Typography variant="h2" gutterBottom>Contact Us</Typography>
+            <Typography variant="h2" gutterBottom sx={{
+                fontWeight: 'bold',
+            }}>Contact Us</Typography>
             <Typography variant="h5" sx={{ mb: 4 }}>
                 {/* eslint-disable-next-line react/no-unescaped-entities */}
                 We're here to help

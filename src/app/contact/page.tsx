@@ -28,7 +28,9 @@ const Contact = () => {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8 }}
                         >
-                        <Typography variant="h3" component="h1" gutterBottom>
+                        <Typography variant="h2" component="h1" sx={{
+                            fontWeight: 'bold',
+                        }} gutterBottom>
                             Contact Us
                         </Typography>
                         <Typography paragraph>

@@ -1,5 +1,6 @@
 import { Box, Typography, Button, Container } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub'; // Import the GitHub icon
+import CoffeeIcon from '@mui/icons-material/LocalCafe'; // Import a coffee-related icon from MUI icons
 
 const HeroSection = () => (
     <Box sx={{
@@ -16,7 +17,7 @@ const HeroSection = () => (
             <Typography variant="h1" sx={{
                 fontWeight: 'bold',
             }}>
-                Elevate Your Development Workflow
+                This is a Template
             </Typography>
             <Typography variant="h5" sx={{
                 my: 2,
@@ -52,6 +53,16 @@ const HeroSection = () => (
                     href="#get-started" // Assuming you have an anchor tag or route for getting started
                 >
                     Get Started
+                </Button>
+                <Button
+                    variant="contained"
+                    color="secondary"
+                    size="large"
+                    startIcon={<CoffeeIcon />}
+                    href="https://www.buymeacoffee.com/jameschapman19"
+                    target="_blank"
+                >
+                    Buy Me a Coffee
                 </Button>
             </Box>
         </Container>

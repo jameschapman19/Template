@@ -35,7 +35,9 @@ const About = () => {
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ duration: 0.6 }}
                 >
-                    <Typography variant="h3" component="h1" gutterBottom>
+                    <Typography variant="h2" gutterBottom sx={{
+                        fontWeight: 'bold',
+                    }}>
                         About James Chapman
                     </Typography>
                     <Typography variant="h6" sx={{ my: 2 }}>
@@ -68,7 +70,16 @@ const About = () => {
                             transition={{ duration: 0.6 }}
                         >
                             {/* Placeholder image of James Chapman */}
-                            <Image src="/placeholder-profile.jpg" alt="James Chapman" width={300} height={300} />
+                            <Image
+                                src="/Me.jpg"
+                                alt="James Chapman"
+                                width={500}
+                                height={500}
+                                layout="responsive"
+                                objectFit="cover"
+                                quality={100}
+
+                            />
                         </motion.div>
                     </Grid>
                 </Grid>

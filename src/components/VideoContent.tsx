@@ -63,7 +63,9 @@ const VideoContent = ({ src, title, description }) => {
                 color: 'white',
                 zIndex: 1 // Ensure text is above the overlay
             }}>
-                <Typography variant="h1">{title}</Typography>
+                <Typography variant="h1" sx={{
+                    fontWeight: 'bold',
+                }}>{title}</Typography>
                 <Typography variant="h2">{description}</Typography>
             </Box>
         </Box>

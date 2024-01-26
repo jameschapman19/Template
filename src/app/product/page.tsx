@@ -62,7 +62,9 @@ const Product = () => {
             transition={{ duration: 0.8 }}
         >
             <Container maxWidth="md">
-                <Typography variant="h3" gutterBottom sx={{ mt: 4,textAlign: 'center' }}>
+                <Typography variant="h2" gutterBottom sx={{ mt: 4,textAlign: 'center',
+                    fontWeight: 'bold',
+                }}>
                     Product Demo
                 </Typography>
                 <Typography paragraph>
