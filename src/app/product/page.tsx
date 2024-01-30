@@ -18,6 +18,7 @@ const LoadingAnimation = () => (
     </Box>
 );
 
+// @ts-ignore
 const ResultDisplay = ({ result }) => (
     <motion.div
         initial={{ scale: 0.8, opacity: 0 }}
