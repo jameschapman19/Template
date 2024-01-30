@@ -18,8 +18,11 @@ const LoadingAnimation = () => (
     </Box>
 );
 
-// @ts-ignore
-const ResultDisplay = ({ result }) => (
+interface ResultDisplayProps {
+    result: string;
+}
+
+const ResultDisplay: React.FC<ResultDisplayProps> = ({ result }) => (
     <motion.div
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}

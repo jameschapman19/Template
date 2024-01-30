@@ -36,7 +36,7 @@ const HeroSection = () => (
                 gap: 2, // Add space between buttons
             }}>
                 <Button
-                    variant="contained"
+                    variant="outlined"
                     color="primary"
                     size="large"
                     href="https://github.com/jameschapman19/template"
@@ -47,7 +47,7 @@ const HeroSection = () => (
                     Source Code
                 </Button>
                 <Button
-                    variant="outlined"
+                    variant="contained"
                     color="primary"
                     size="large"
                     href="/product" // Assuming you have an anchor tag or route for getting started
