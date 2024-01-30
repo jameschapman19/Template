@@ -1,23 +1,50 @@
 "use client"
 import React, { useState } from 'react';
-import { Container, Typography, Paper, TextField, Button, Grid, Card, CardContent, CardActionArea, CardMedia } from '@mui/material';
+import { Container,Box, Typography, Paper, TextField, Button, Grid, Card, CardContent, CardActionArea, CardMedia } from '@mui/material';
 import { motion } from 'framer-motion';
 import FileUpload from '@/components/FileUpload';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import DescriptionIcon from '@mui/icons-material/Description';
 import DeleteIcon from '@mui/icons-material/Delete';
 import axios from 'axios';
+import CircularProgress from '@mui/material/CircularProgress';
+
+const LoadingAnimation = () => (
+    <Box sx={{ textAlign: 'center', mt: 4 }}>
+        <CircularProgress />
+        <Typography variant="h6" sx={{ mt: 2 }}>
+            Processing your request...
+        </Typography>
+    </Box>
+);
+
+const ResultDisplay = ({ result }) => (
+    <motion.div
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.5 }}
+        style={{ marginTop: '20px', textAlign: 'center' }}
+    >
+        <Typography variant="h4" style={{ fontWeight: 'bold' }}>
+            Result:
+        </Typography>
+        <Typography variant="h5" style={{ color: '#4caf50', marginTop: '10px' }}>
+            {result}
+        </Typography>
+    </motion.div>
+);
 
 const Product = () => {
     const [query, setQuery] = useState('');
     const [files, setFiles] = useState<File[]>([]);
     const [response, setResponse] = useState(''); // State to store the response from the server
-
+    const [isLoading, setIsLoading] = useState(false);
     const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setQuery(event.target.value);
     };
 
     const handleQuerySubmit = async () => {
+        setIsLoading(true); // Start loading
         const formData = new FormData();
         files.forEach(file => formData.append('files', file));
         formData.append('query', query);
@@ -28,11 +55,13 @@ const Product = () => {
                     'Content-Type': 'multipart/form-data'
                 }
             });
-            setResponse(JSON.stringify(response.data)); // Set the response state
+            // Set only the 'result' part of the response
+            setResponse(response.data.result);
         } catch (error) {
             console.error('Error submitting files and query:', error);
             setResponse('Failed to fetch response');
         }
+        setIsLoading(false); // Stop loading once the API call is complete
     };
 
     const handleFileUpload = (newFiles: File[]) => {
@@ -117,15 +146,11 @@ const Product = () => {
                         Submit Query
                     </Button>
                 </Paper>
-                {/* Display the response from the server */}
-                <Paper elevation={3} sx={{ p: 2, mt: 3 }}>
-                    <Typography variant="h6" gutterBottom>
-                        Server Response
-                    </Typography>
-                    <Typography>
-                        {response}
-                    </Typography>
-                </Paper>
+                {isLoading ? (
+                    <LoadingAnimation />
+                ) : (
+                    response && <ResultDisplay result={response} />
+                )}
             </Container>
         </motion.div>
     );

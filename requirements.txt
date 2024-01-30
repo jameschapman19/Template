@@ -1,2 +1,7 @@
 Flask
 flask-cors
+langchain
+huggingface_hub
+langchainhub
+faiss-cpu
+tiktoken

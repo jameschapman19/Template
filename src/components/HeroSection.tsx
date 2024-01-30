@@ -50,7 +50,7 @@ const HeroSection = () => (
                     variant="outlined"
                     color="primary"
                     size="large"
-                    href="#get-started" // Assuming you have an anchor tag or route for getting started
+                    href="/product" // Assuming you have an anchor tag or route for getting started
                 >
                     Get Started
                 </Button>

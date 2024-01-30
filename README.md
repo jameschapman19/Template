@@ -1,4 +1,4 @@
-<div>
+<div align="center">
 
 # Next.js Project Template
 ## with MUI, Framer Motion, and TypeScript
@@ -8,10 +8,11 @@
 ![Template Stars](https://img.shields.io/github/stars/jameschapman19/Template)
 ![Template Language](https://img.shields.io/github/languages/top/jameschapman19/Template)
 ![Template TypeScript](https://badgen.net/npm/types/tslib)
+</div>
+<div align="center">
 <a href="https://www.buymeacoffee.com/jameschapman19" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
 
 This is a Next.js project template that comes pre-configured with powerful features to kickstart your web development journey. It includes Next.js for server-side rendering, Material-UI (MUI) components for a sleek UI, Framer Motion for dynamic page transitions, and TypeScript for type safety.
-
 </div>
 
 ## Getting Started
