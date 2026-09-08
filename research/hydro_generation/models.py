@@ -3,8 +3,7 @@ hydropower forecasting practice:
 
 M_naive_calendar    Treat generation as just another seasonal series and
                     fit it directly: Fourier terms for the annual/weekly
-                    cycle + ARMA errors (dynamic harmonic regression, same
-                    recipe as ../multi_frequency_timeseries/parametric).
+                    cycle, plain OLS (no AR/ARMA -- a "raw" regression).
                     This model never looks at rain, inflow, or storage.
 
 M_structural_esp    Ensemble Streamflow Prediction (ESP) logic (the named,
@@ -15,8 +14,8 @@ M_structural_esp    Ensemble Streamflow Prediction (ESP) logic (the named,
                     using a *climatological* (day-of-year average, computed
                     only from training data) inflow scenario -- because no
                     one has skillful rain forecasts months out -- plus a
-                    Fourier+ARMA demand forecast, and let the mechanistic
-                    model's own constraint produce the generation forecast.
+                    plain OLS Fourier demand forecast, and let the
+                    mechanistic model's own constraint produce the forecast.
 
 The comparison isolates one thing: does today's observed water level get to
 influence the forecast at all? M_naive_calendar has no channel for it to;
@@ -44,25 +43,23 @@ def fourier_design(index: pd.DatetimeIndex, t0: pd.Timestamp) -> pd.DataFrame:
     )
 
 
-class DynamicHarmonicRegression:
-    """Fourier terms + ARMA(1,1) errors, fit to whichever series is passed
-    in (`generation` for the naive strategy, `demand` for the structural
-    strategy's demand forecast)."""
+class HarmonicRegression:
+    """Fourier terms, plain OLS -- no AR/ARMA. Fit to whichever series is
+    passed in (`generation` for the naive strategy, `demand` for the
+    structural strategy's demand forecast)."""
 
     def __init__(self, t0: pd.Timestamp):
         self.t0 = t0
 
-    def fit(self, y_train: pd.Series, order=(1, 0, 1)):
+    def fit(self, y_train: pd.Series):
         X = fourier_design(y_train.index, self.t0)
-        self.mod_ = sm.tsa.SARIMAX(y_train, exog=X, order=order, trend="c",
-                                    enforce_stationarity=False, enforce_invertibility=False)
-        self.res_ = self.mod_.fit(disp=False, method="lbfgs", maxiter=200)
+        self.res_ = sm.OLS(y_train, sm.add_constant(X)).fit()
         return self
 
     def forecast(self, horizon_index):
         X_future = fourier_design(horizon_index, self.t0)
-        fc = self.res_.get_forecast(steps=len(horizon_index), exog=X_future)
-        return pd.Series(fc.predicted_mean.values, index=horizon_index)
+        pred = self.res_.predict(sm.add_constant(X_future, has_constant="add"))
+        return pd.Series(pred.values, index=horizon_index)
 
 
 T0 = pd.Timestamp(sim.START)
@@ -72,7 +69,7 @@ class NaiveCalendarModel:
     name = "M_naive_calendar"
 
     def fit(self, df_train: pd.DataFrame):
-        self.model_ = DynamicHarmonicRegression(T0).fit(df_train["generation"])
+        self.model_ = HarmonicRegression(T0).fit(df_train["generation"])
         return self
 
     def forecast(self, horizon_index):
@@ -100,7 +97,7 @@ class StructuralESPModel:
 
     def fit(self, df_train: pd.DataFrame):
         self.inflow_climatology_ = climatology(df_train["inflow"])
-        self.demand_model_ = DynamicHarmonicRegression(T0).fit(df_train["demand"])
+        self.demand_model_ = HarmonicRegression(T0).fit(df_train["demand"])
         self.storage_origin_ = float(df_train["storage"].iloc[-1])
         return self
 

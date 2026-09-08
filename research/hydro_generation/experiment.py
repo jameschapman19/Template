@@ -124,16 +124,21 @@ def plot_drought_onset_forecast(df: pd.DataFrame):
     )
 
 
+DROUGHT_ESTABLISHED_ORIGIN = sim.DROUGHT_START + 220  # ~a month after generation
+# first actually falls short of demand at this calibration -- see README.
+
+
 def plot_drought_established_forecast(df: pd.DataFrame):
-    """Forecast made 100 days into the drought, once the rain deficit has
-    already pulled storage down. Now the two models diverge sharply: the
-    structural model is anchored on the already-low true storage and
-    projects continued constraint; the calendar-only model has no channel
-    for that information and keeps forecasting a normal seasonal cycle.
+    """Forecast made after the rain deficit has already pulled storage below
+    the rule-curve threshold and generation has started missing demand. Now
+    the two models diverge sharply: the structural model is anchored on the
+    already-low true storage and projects continued constraint; the
+    calendar-only model has no channel for that information and keeps
+    forecasting a normal seasonal cycle.
     """
     _plot_forecast_from_origin(
-        df, sim.DROUGHT_START + 100,
-        "100 days into the drought: storage has already fallen -- now the models diverge",
+        df, DROUGHT_ESTABLISHED_ORIGIN,
+        "Once generation has already fallen short of demand: the models diverge",
         "drought_established_forecast.png",
     )
 

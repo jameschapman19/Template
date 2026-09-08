@@ -14,10 +14,13 @@ README.md for citations) and standard reservoir "rule curve" operating logic.
     storage S(t)   mass balance: S(t) = S(t-1) + inflow(t) - evaporation(t)
                    - env_flow - generation(t), clipped to [0, CAPACITY]
                    (excess is spill).
-    net_demand(t)  the load assigned to hydro after other generation (solar,
-                   wind, thermal) is dispatched -- itself has a slow annual
-                   pattern, a fast weekly pattern, and noise (reuses the
-                   multi-frequency structure from ../multi_frequency_timeseries).
+    temperature(t) the weather variable that drives demand (independent of
+                   rain, the weather variable that drives water): seasonal +
+                   i.i.d. noise, no autocorrelation.
+    net_demand(t)  = f(temperature, calendar): a heating-degree-day response
+                   to temperature plus a day-of-week effect, both linear,
+                   plus i.i.d. noise -- the load assigned to hydro after
+                   other generation (solar, wind, thermal) is dispatched.
     generation(t)  dispatch: hydro tries to follow net_demand up to turbine
                    capacity, but a rule-curve constraint cuts the maximum
                    allowed release when storage is below a threshold -- this
@@ -62,12 +65,22 @@ MIN_ENV_FLOW = 0.5         # compliance release, always leaves the reservoir
 MAX_TURBINE_CAPACITY = 20.0
 RULE_CURVE_FRACTION = 0.15   # release capacity ramps down below this * CAPACITY
 
-# --- net demand assigned to hydro ------------------------------------------
-DEMAND_BASE = 9.0
+# --- temperature (the weather variable that drives demand; independent of
+# rain, which is the weather variable that drives water) -------------------
+TEMP_MEAN = 15.0
+TEMP_AMPLITUDE = 10.0        # deg C swing, coldest ~ TEMP_TROUGH_DAY
+TEMP_TROUGH_DAY = 15
+TEMP_NOISE_SD = 2.0          # i.i.d. day-to-day weather noise, no autocorrelation
+
+# --- net demand assigned to hydro: net_demand = f(temperature, calendar) ---
+# No AR/ARMA anywhere in this module: every noise term below is i.i.d. The
+# "raw model" this study fits back out of these series should not need to
+# invent autocorrelation structure that was never simulated in.
+DEMAND_BASE = 5.5
 DEMAND_TREND = 0.0009
-DEMAND_ANNUAL = {"sin1": 2.6, "cos1": -1.4}   # winter-peaking
+HEATING_REF_TEMP = 18.0     # demand rises below this temperature (heating)
+HEATING_SENSITIVITY = 0.30  # demand units per heating-degree-day
 DEMAND_WEEKLY = {"sin1": 0.9, "cos1": 0.5}
-DEMAND_AR_PHI = 0.5
 DEMAND_NOISE_SD = 0.55
 
 
@@ -100,20 +113,32 @@ def route_inflow(rain):
     return inflow
 
 
-def simulate_demand(n_days, seed):
+def simulate_temperature(n_days, seed):
+    rng = np.random.default_rng(seed + 2)
+    t = np.arange(n_days, dtype=float)
+    seasonal = -TEMP_AMPLITUDE * np.cos(2 * np.pi * (t - TEMP_TROUGH_DAY) / 365.25)
+    noise = rng.normal(0, TEMP_NOISE_SD, n_days)   # i.i.d. -- no AR
+    return TEMP_MEAN + seasonal + noise
+
+
+def simulate_demand(n_days, seed, temperature):
+    """net_demand = f(weather, calendar): a heating-degree-day response to
+    temperature (the weather term) plus a day-of-week effect (the calendar
+    term), both linear/additive -- the same "raw regression" functional form
+    the forecasting models below will try to recover. i.i.d. noise only.
+    """
     rng = np.random.default_rng(seed + 1)
     t = np.arange(n_days, dtype=float)
-    w_annual = 2 * np.pi * t / 365.25
+    dow = t.astype(int) % 7
     w_weekly = 2 * np.pi * t / 7
-    seasonal = (DEMAND_ANNUAL["sin1"] * np.sin(w_annual) + DEMAND_ANNUAL["cos1"] * np.cos(w_annual)
-                + DEMAND_WEEKLY["sin1"] * np.sin(w_weekly) + DEMAND_WEEKLY["cos1"] * np.cos(w_weekly))
-    base = DEMAND_BASE + DEMAND_TREND * t + seasonal
+    weekly = DEMAND_WEEKLY["sin1"] * np.sin(w_weekly) + DEMAND_WEEKLY["cos1"] * np.cos(w_weekly)
 
-    noise = np.zeros(n_days)
-    innovations = rng.normal(0, DEMAND_NOISE_SD, n_days)
-    for i in range(1, n_days):
-        noise[i] = DEMAND_AR_PHI * noise[i - 1] + innovations[i]
-    return np.maximum(base + noise, 0.5)
+    heating_degree = np.maximum(HEATING_REF_TEMP - temperature, 0.0)
+    weather_component = HEATING_SENSITIVITY * heating_degree
+
+    noise = rng.normal(0, DEMAND_NOISE_SD, n_days)   # i.i.d. -- no AR
+    demand = DEMAND_BASE + DEMAND_TREND * t + weather_component + weekly + noise
+    return np.maximum(demand, 0.5)
 
 
 def simulate_dispatch(inflow, demand, initial_storage=INITIAL_STORAGE):
@@ -147,12 +172,13 @@ def generate(n_days: int = N_DAYS, seed: int = 0) -> pd.DataFrame:
     idx = pd.date_range(START, periods=n_days, freq="D")
     rain, drought = simulate_rain(n_days, seed)
     inflow = route_inflow(rain)
-    demand = simulate_demand(n_days, seed)
+    temperature = simulate_temperature(n_days, seed)
+    demand = simulate_demand(n_days, seed, temperature)
     storage, generation, spill = simulate_dispatch(inflow, demand)
 
     return pd.DataFrame(
         {
-            "rain": rain, "inflow": inflow, "demand": demand,
+            "rain": rain, "inflow": inflow, "temperature": temperature, "demand": demand,
             "storage": storage, "generation": generation, "spill": spill,
             "drought": drought,
         },
