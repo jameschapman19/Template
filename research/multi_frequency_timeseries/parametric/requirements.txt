@@ -1,0 +1,6 @@
+numpy
+pandas
+statsmodels
+matplotlib
+tbats
+scikit-learn<1.6
