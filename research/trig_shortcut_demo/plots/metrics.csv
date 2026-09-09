@@ -1,0 +1,7 @@
+model,window,rmse
+trig_only,normal_holdout,0.36875628984947123
+trig_only,anomaly,7.994676305303138
+causal_only,normal_holdout,1.461048440482544
+causal_only,anomaly,2.0681280971020253
+both,normal_holdout,0.3668217480777608
+both,anomaly,7.704748388077891
