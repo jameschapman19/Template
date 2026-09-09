@@ -55,19 +55,29 @@ def seasonal(t: np.ndarray) -> np.ndarray:
     return SEASONAL_AMPLITUDE_SIN * np.sin(w) + SEASONAL_AMPLITUDE_COS * np.cos(w)
 
 
-def generate(n_days: int = N_DAYS, seed: int = 0) -> pd.DataFrame:
+def generate(n_days: int = N_DAYS, seed: int = 0, eps_sigma_normal: float = EPS_SIGMA_NORMAL,
+             u_sigma: float = U_SIGMA, mini_anomaly_frac: float = 0.0,
+             mini_anomaly_scale: float = 4.0) -> pd.DataFrame:
+    """mini_anomaly_frac/scale let training data include occasional smaller
+    excursions of the true driver away from its seasonal shape -- i.e. more
+    *diversity* in eps, as opposed to just more days of the same normal
+    noise. Used to separate "more data" from "more informative data."
+    """
     rng = np.random.default_rng(seed)
     t = np.arange(n_days)
     idx = pd.RangeIndex(n_days, name="t")
 
     S = seasonal(t)
-    eps = rng.normal(0, EPS_SIGMA_NORMAL, n_days)
+    eps = rng.normal(0, eps_sigma_normal, n_days)
+    if mini_anomaly_frac > 0:
+        hits = rng.random(n_days) < mini_anomaly_frac
+        eps[hits] += rng.normal(0, mini_anomaly_scale, hits.sum())
     anomaly = (t >= ANOMALY_START) & (t < ANOMALY_END)
     eps[anomaly] += ANOMALY_LEVEL
 
     W_true = S + eps
     Y = W_true + rng.normal(0, ETA_SIGMA, n_days)
-    W_obs = W_true + rng.normal(0, U_SIGMA, n_days)
+    W_obs = W_true + rng.normal(0, u_sigma, n_days)
 
     w_ = 2 * np.pi * t / PERIOD
     return pd.DataFrame(
