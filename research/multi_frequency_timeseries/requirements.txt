@@ -1,6 +1,0 @@
-numpy
-pandas
-xgboost
-scikit-learn
-statsmodels
-matplotlib
